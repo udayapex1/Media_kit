@@ -16,7 +16,7 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
   if (err.code) {
 
     if (err.code === '23505') {
-      return res.status(409).json({ error: 'Username already exists' });
+      return res.status(409).json({ error: 'Username already exist' });
     }
     if (err.code === '23514') {
       return res.status(400).json({ error: 'Database constraint violation (e.g. invalid username format)' });
