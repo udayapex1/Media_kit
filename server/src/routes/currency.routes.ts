@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
+import { asyncHandler } from '../utils/asyncHandler';
 
 const router = Router();
 
@@ -18,54 +19,50 @@ interface CacheEntry {
 const rateCache: Record<string, CacheEntry> = {};
 const TTL_MS = 60 * 60 * 1000;
 
-router.get('/convert', async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { amount, from, to } = ConversionQuerySchema.parse(req.query);
+router.get('/convert', asyncHandler(async (req: Request, res: Response) => {
+  const { amount, from, to } = ConversionQuerySchema.parse(req.query);
 
-    const cacheKey = `${from}_${to}`;
-    let rate = 1;
+  const cacheKey = `${from}_${to}`;
+  let rate = 1;
 
-    if (from !== to) {
-      const now = Date.now();
-      const cached = rateCache[cacheKey];
+  if (from !== to) {
+    const now = Date.now();
+    const cached = rateCache[cacheKey];
 
-      if (cached && cached.expiresAt > now) {
-        console.log(`Cache hit for ${cacheKey}`);
-        rate = cached.rate;
+    if (cached && cached.expiresAt > now) {
+      console.log(`Cache hit for ${cacheKey}`);
+      rate = cached.rate;
+    } else {
+      console.log(`Cache miss for ${cacheKey}, fetching from upstream`);
+      
+      const response = await fetch(`https://open.er-api.com/v6/latest/${from}`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch exchange rates');
+      }
+
+      const data = await response.json();
+      if (data.result === 'success' && data.rates[to]) {
+        rate = data.rates[to];
+        rateCache[cacheKey] = {
+          rate,
+          expiresAt: now + TTL_MS
+        };
       } else {
-        console.log(`Cache miss for ${cacheKey}, fetching from upstream`);
-        
-        const response = await fetch(`https://open.er-api.com/v6/latest/${from}`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch exchange rates');
-        }
-
-        const data = await response.json();
-        if (data.result === 'success' && data.rates[to]) {
-          rate = data.rates[to];
-          rateCache[cacheKey] = {
-            rate,
-            expiresAt: now + TTL_MS
-          };
-        } else {
-          return res.status(400).json({ error: 'Unsupported currency code' });
-        }
+        return res.status(400).json({ error: 'Unsupported currency code' });
       }
     }
-
-    const converted = Number((amount * rate).toFixed(2));
-
-    return res.status(200).json({
-      amount,
-      from,
-      to,
-      rate,
-      converted
-    });
-  } catch (error) {
-    next(error);
   }
-});
+
+  const converted = Number((amount * rate).toFixed(2));
+
+  return res.status(200).json({
+    amount,
+    from,
+    to,
+    rate,
+    converted
+  });
+}));
 
 export default router;

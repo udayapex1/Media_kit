@@ -5,8 +5,9 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
   // Catch Zod validation failures first
   if (err instanceof ZodError) {
     const zodErr = err as any;
-    const formattedErrors = zodErr.errors.map((e: any) => ({
-      path: e.path.join('.'),
+    const errList = zodErr.errors || zodErr.issues || [];
+    const formattedErrors = errList.map((e: any) => ({
+      path: e.path ? e.path.join('.') : '',
       message: e.message
     }));
     return res.status(400).json({ error: 'Validation failed', details: formattedErrors });
