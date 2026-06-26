@@ -3,17 +3,17 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="h-screen w-full flex flex-col items-center justify-center bg-base text-white p-6 text-center">
-      <div className="bg-container border border-muted p-10 rounded-2xl max-w-md w-full shadow-2xl">
-        <h1 className="text-3xl font-bold mb-4" style={{ fontFamily: 'Geist, sans-serif' }}>
+    <div className="h-screen w-full flex flex-col items-center justify-center bg-cohere-white text-cohere-ink p-6 text-center">
+      <div className="bg-cohere-white border border-cohere-borderlight p-10 rounded-[22px] max-w-md w-full shadow-sm">
+        <h1 className="text-[32px] font-medium mb-4 text-cohere-black" style={{ fontFamily: 'Geist, sans-serif', letterSpacing: '-0.32px' }}>
           Kit Not Found
         </h1>
-        <p className="text-gray-400 mb-8 leading-relaxed">
+        <p className="text-cohere-slate mb-8 leading-[1.5] text-[16px]">
           This media kit doesn't exist yet, or it may have been removed. 
         </p>
         <Link 
           href="/edit" 
-          className="inline-block bg-accent hover:bg-accent/80 transition-colors text-white font-semibold py-3 px-6 rounded-lg w-full"
+          className="inline-block bg-cohere-nearblack hover:bg-cohere-nearblack/90 transition-colors text-cohere-white font-medium py-[12px] px-[24px] rounded-[32px] w-full text-[14px]"
         >
           Create your own Media Kit
         </Link>

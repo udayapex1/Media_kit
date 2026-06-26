@@ -3,9 +3,11 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 
+import './config/env';
 import kitRoutes from './routes/kit.routes';
 import exportRoutes from './routes/export.routes';
 import currencyRoutes from './routes/currency.routes';
+import { uploadRoutes } from './routes/upload.routes';
 import { errorHandler } from './middleware/errorHandler';
 
 const app = express();
@@ -13,7 +15,7 @@ const app = express();
 app.use(helmet());
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
   credentials: true
 }));
 
@@ -26,6 +28,7 @@ app.use(express.json());
 app.use('/api/kit', kitRoutes);
 app.use('/api/kit', exportRoutes);
 app.use('/api/currency', currencyRoutes);
+app.use('/api/upload', uploadRoutes);
 
 app.use((req, res, next) => {
   const err: any = new Error('Not Found');

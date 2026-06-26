@@ -24,11 +24,11 @@ export function KitPreview({ kit, mode }: Props) {
   return (
     <div 
       style={style} 
-      className="w-full h-full bg-base text-white overflow-y-auto"
+      className="w-full h-full bg-cohere-white text-cohere-ink overflow-y-auto"
     >
-      <div className="max-w-4xl mx-auto px-6 md:px-12 py-12 flex flex-col min-h-full">
+      <div className="max-w-4xl mx-auto px-6 md:px-12 py-16 flex flex-col min-h-full">
         {mode === 'view' && (
-          <div className="flex justify-end mb-8">
+          <div className="flex justify-end mb-12">
             <CurrencySelector kit={kit} onConverted={setConvertedRates} />
           </div>
         )}

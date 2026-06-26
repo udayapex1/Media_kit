@@ -17,10 +17,10 @@ export default async function PublicKitPage({ params }: { params: { username: st
     }
     
     return (
-      <div className="h-screen w-full flex items-center justify-center bg-base text-white">
+      <div className="h-screen w-full flex items-center justify-center bg-cohere-white text-cohere-ink">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-red-500 mb-2">Error loading kit</h1>
-          <p className="text-gray-400">Please try again later.</p>
+          <h1 className="text-[24px] font-medium text-cohere-errorred mb-2" style={{ fontFamily: 'Geist, sans-serif' }}>Error loading kit</h1>
+          <p className="text-cohere-slate">Please try again later.</p>
         </div>
       </div>
     );

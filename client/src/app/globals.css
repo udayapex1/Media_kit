@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --theme-accent: #6366F1;
+  --theme-accent: #1863dc;
 }
 
 body {
-  color: white;
-  background-color: #0d0d12;
+  color: #212121; /* ink */
+  background-color: #ffffff;
 }
 
 @layer utilities {

@@ -32,3 +32,15 @@ export async function convertCurrency(amount: number, from: string, to: string) 
   if (!res.ok) throw new Error('Failed to convert currency');
   return res.json(); // { amount, from, to, rate, converted }
 }
+
+export async function uploadImage(file: File): Promise<{ url: string }> {
+  const formData = new FormData();
+  formData.append('image', file);
+  
+  const res = await fetch(`${API_URL}/api/upload/image`, {
+    method: 'POST',
+    body: formData
+  });
+  if (!res.ok) throw new Error('Failed to upload image');
+  return res.json();
+}

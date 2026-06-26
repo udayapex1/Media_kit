@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Upload } from 'lucide-react';
+import { Upload, Loader2 } from 'lucide-react';
 import { CreatorKit } from '../../lib/types';
+import { uploadImage } from '../../lib/api';
 
 interface Props {
   kit: CreatorKit;
@@ -9,11 +10,24 @@ interface Props {
 }
 
 export function ProfileForm({ kit, onChange }: Props) {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+  const [isUploading, setIsUploading] = useState(false);
+
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
+      // Optimistic preview
       const objectUrl = URL.createObjectURL(file);
       onChange({ profile_image_url: objectUrl });
+      
+      try {
+        setIsUploading(true);
+        const { url } = await uploadImage(file);
+        onChange({ profile_image_url: url });
+      } catch (err) {
+        console.error('Failed to upload image:', err);
+      } finally {
+        setIsUploading(false);
+      }
     }
   }, [onChange]);
 
@@ -24,13 +38,13 @@ export function ProfileForm({ kit, onChange }: Props) {
   });
 
   return (
-    <div className="flex flex-col gap-4">
-      <h2 className="text-lg font-semibold">Profile</h2>
+    <div className="flex flex-col gap-6">
+      <h2 className="text-[24px] leading-[1.3] font-medium text-cohere-black" style={{ fontFamily: 'Geist, sans-serif' }}>Profile</h2>
       
       <div className="flex flex-col gap-2">
-        <label className="text-sm text-gray-400 font-medium">Display Name</label>
+        <label className="text-[14px] font-medium text-cohere-ink">Display Name</label>
         <input 
-          className="bg-container border border-muted p-2 rounded text-white"
+          className="bg-cohere-white border border-cohere-hairline p-[12px] rounded-[8px] text-cohere-ink text-[16px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa]"
           value={kit.full_name || ''}
           onChange={(e) => onChange({ full_name: e.target.value })}
           placeholder="e.g. Jane Doe"
@@ -38,9 +52,9 @@ export function ProfileForm({ kit, onChange }: Props) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="text-sm text-gray-400 font-medium">Biography</label>
+        <label className="text-[14px] font-medium text-cohere-ink">Biography</label>
         <textarea 
-          className="bg-container border border-muted p-2 rounded text-white min-h-[100px]"
+          className="bg-cohere-white border border-cohere-hairline p-[12px] rounded-[8px] text-cohere-ink text-[16px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] min-h-[120px]"
           value={kit.bio || ''}
           onChange={(e) => onChange({ bio: e.target.value })}
           placeholder="Tell brands about yourself..."
@@ -48,19 +62,23 @@ export function ProfileForm({ kit, onChange }: Props) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="text-sm text-gray-400 font-medium">Profile Photo</label>
+        <label className="text-[14px] font-medium text-cohere-ink">Profile Photo</label>
         <div 
           {...getRootProps()} 
-          className={`border-2 border-dashed p-6 flex flex-col items-center justify-center rounded cursor-pointer transition-colors
-            ${isDragActive ? 'border-accent bg-accent/10' : 'border-muted hover:border-accent/50'}`}
+          className={`border border-dashed p-8 flex flex-col items-center justify-center rounded-[16px] cursor-pointer transition-colors
+            ${isDragActive ? 'border-[#1863dc] bg-cohere-paleblue' : 'border-cohere-hairline hover:border-cohere-slate bg-cohere-white'}`}
         >
           <input {...getInputProps()} />
-          <Upload className="mb-2 text-gray-400" size={24} />
-          {isDragActive ? (
-            <p className="text-sm text-gray-300">Drop the image here ...</p>
+          {isUploading ? (
+            <Loader2 className="mb-3 text-cohere-blue animate-spin" size={24} />
           ) : (
-            <p className="text-sm text-gray-400 text-center">
-              Drag & drop a photo here, or click to select
+            <Upload className="mb-3 text-cohere-slate" size={24} />
+          )}
+          {isDragActive ? (
+            <p className="text-[14px] text-cohere-ink font-medium">Drop the image here ...</p>
+          ) : (
+            <p className="text-[14px] text-cohere-slate text-center">
+              {isUploading ? 'Uploading...' : 'Drag & drop a photo here, or click to select'}
             </p>
           )}
         </div>

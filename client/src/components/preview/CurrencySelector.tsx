@@ -57,10 +57,10 @@ export function CurrencySelector({ kit, onConverted }: Props) {
   }, [selectedCurrency, baseCurrency, kit.rate_cards, onConverted]);
 
   return (
-    <div className="flex items-center gap-3 bg-container/50 border border-muted/50 p-2 rounded-lg backdrop-blur-sm self-end">
-      <span className="text-sm text-gray-400 font-medium ml-2">Display in:</span>
+    <div className="flex items-center gap-2 bg-cohere-white border border-cohere-borderlight p-1 rounded-[30px] shadow-sm self-end">
+      <span className="text-[12px] text-cohere-slate font-medium ml-3">Display in:</span>
       <select 
-        className="bg-base border border-muted p-1.5 rounded text-white text-sm focus:border-accent outline-none"
+        className="bg-transparent text-cohere-ink text-[14px] font-medium border-0 outline-none pr-2"
         value={selectedCurrency}
         onChange={(e) => setSelectedCurrency(e.target.value)}
         disabled={loading}
@@ -69,7 +69,7 @@ export function CurrencySelector({ kit, onConverted }: Props) {
           <option key={c} value={c}>{c}</option>
         ))}
       </select>
-      {loading && <span className="text-xs text-accent animate-pulse px-2">Updating...</span>}
+      {loading && <span className="text-[12px] text-cohere-blue animate-pulse px-2">Updating...</span>}
     </div>
   );
 }

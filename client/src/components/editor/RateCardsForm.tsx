@@ -33,18 +33,18 @@ export function RateCardsForm({ kit, onChange }: Props) {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold">Rate Matrix</h2>
+        <h2 className="text-[24px] leading-[1.3] font-medium text-cohere-black" style={{ fontFamily: 'Geist, sans-serif' }}>Rate Matrix</h2>
         <button 
           onClick={addCard}
-          className="flex items-center gap-1 text-sm bg-container border border-muted hover:border-accent px-3 py-1.5 rounded transition-colors"
+          className="flex items-center gap-2 text-[14px] font-medium bg-transparent border border-cohere-slate text-cohere-nearblack hover:bg-cohere-paleblue hover:border-cohere-blue px-[24px] py-[8px] rounded-[30px] transition-colors"
         >
           <Plus size={16} /> Add Service
         </button>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         <AnimatePresence>
           {rateCards.map(rc => (
             <motion.div 
@@ -53,44 +53,44 @@ export function RateCardsForm({ kit, onChange }: Props) {
               animate={{ opacity: 1, scale: 1, height: 'auto' }}
               exit={{ opacity: 0, scale: 0.95, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="bg-container border border-muted p-4 rounded flex flex-col gap-3 overflow-hidden"
+              className="bg-cohere-white border border-cohere-borderlight p-[20px] rounded-[16px] flex flex-col gap-4 overflow-hidden"
             >
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <input 
-                  className="bg-base border border-muted p-2 rounded text-white flex-1 font-medium"
+                  className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] font-medium outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] flex-1"
                   placeholder="Service Name (e.g. Dedicated Video)"
                   value={rc.name}
                   onChange={(e) => updateCard(rc.id, { name: e.target.value })}
                 />
                 <button 
                   onClick={() => removeCard(rc.id)}
-                  className="p-2 text-red-400 hover:bg-red-400/10 rounded transition-colors"
+                  className="p-2 text-[#b30000] hover:bg-[#b30000]/10 rounded-full transition-colors flex shrink-0 items-center justify-center"
                 >
                   <Trash2 size={20} />
                 </button>
               </div>
 
               <textarea 
-                className="bg-base border border-muted p-2 rounded text-white w-full text-sm min-h-[60px]"
+                className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] w-full min-h-[80px]"
                 placeholder="Description of the deliverable..."
                 value={rc.description}
                 onChange={(e) => updateCard(rc.id, { description: e.target.value })}
               />
 
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <div className="flex-1 flex flex-col gap-1">
-                  <label className="text-xs text-gray-400">Price ({kit.base_currency})</label>
+                  <label className="text-[12px] text-cohere-slate">Price ({kit.base_currency})</label>
                   <input 
                     type="number" min="0"
-                    className="bg-base border border-muted p-2 rounded text-white w-full"
+                    className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] w-full"
                     value={rc.price || ''}
                     onChange={(e) => updateCard(rc.id, { price: Number(e.target.value) })}
                   />
                 </div>
                 <div className="flex-1 flex flex-col gap-1">
-                  <label className="text-xs text-gray-400">Turnaround Time</label>
+                  <label className="text-[12px] text-cohere-slate">Turnaround Time</label>
                   <input 
-                    className="bg-base border border-muted p-2 rounded text-white w-full"
+                    className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] w-full"
                     placeholder="e.g. 7 days"
                     value={rc.turnaround}
                     onChange={(e) => updateCard(rc.id, { turnaround: e.target.value })}
@@ -101,7 +101,7 @@ export function RateCardsForm({ kit, onChange }: Props) {
           ))}
         </AnimatePresence>
         {rateCards.length === 0 && (
-          <p className="text-sm text-gray-500 text-center py-4 border border-dashed border-muted rounded">
+          <p className="text-[14px] text-cohere-slate text-center py-6 border border-dashed border-cohere-hairline rounded-[16px]">
             No rate cards added yet.
           </p>
         )}
