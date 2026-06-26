@@ -1,0 +1,153 @@
+{
+  "info": {
+    "name": "Media Kit API",
+    "description": "API endpoints for the Dynamic Creator Media Kit assignment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Save Kit (Initial Insert)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"jane-doe-123\",\n  \"full_name\": \"Jane Doe\",\n  \"bio\": \"Tech Creator\",\n  \"metrics\": [{\"id\": \"m1\", \"platform\": \"youtube\", \"handle\": \"janedoe\", \"followers\": 100000, \"engagement\": 5.2}],\n  \"rate_cards\": [{\"id\": \"r1\", \"name\": \"Dedicated Video\", \"description\": \"10 min video\", \"price\": 2500, \"turnaround\": \"2 weeks\"}]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/kit/save",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "kit", "save"]
+        }
+      }
+    },
+    {
+      "name": "2. Save Kit (Idempotent Update)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"jane-doe-123\",\n  \"full_name\": \"Jane Doe Updated\",\n  \"bio\": \"Tech Creator Updated\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/kit/save",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "kit", "save"]
+        }
+      }
+    },
+    {
+      "name": "3. Save Kit (Invalid Username)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"Bad Slug!\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/kit/save",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "kit", "save"]
+        }
+      }
+    },
+    {
+      "name": "4. Get Kit by Username",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/kit/jane-doe-123",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "kit", "jane-doe-123"]
+        }
+      }
+    },
+    {
+      "name": "5. Get Kit (Not Found)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/kit/does-not-exist",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "kit", "does-not-exist"]
+        }
+      }
+    },
+    {
+      "name": "6. Export PDF",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/kit/jane-doe-123/export-pdf",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "kit", "jane-doe-123", "export-pdf"]
+        }
+      }
+    },
+    {
+      "name": "7. Currency Conversion",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/currency/convert?amount=100&from=USD&to=INR",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "currency", "convert"],
+          "query": [
+            { "key": "amount", "value": "100" },
+            { "key": "from", "value": "USD" },
+            { "key": "to", "value": "INR" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "8. Unknown Route (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/something-fake",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "something-fake"]
+        }
+      }
+    }
+  ]
+}
