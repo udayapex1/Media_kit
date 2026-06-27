@@ -25,6 +25,10 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(express.json());
 
+app.get('/health', (_req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 app.use('/api/kit', kitRoutes);
 app.use('/api/kit', exportRoutes);
 app.use('/api/currency', currencyRoutes);
