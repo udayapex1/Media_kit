@@ -6,15 +6,19 @@ import { ProfileCard } from './ProfileCard';
 import { MetricsGrid } from './MetricsGrid';
 import { RateCardList } from './RateCardList';
 import { CurrencySelector } from './CurrencySelector';
+import { KitPreviewSkeleton } from './KitPreviewSkeleton';
 
 interface Props {
   kit: CreatorKit;
   mode: 'edit' | 'view';
+  loading?: boolean;
 }
 
-export function KitPreview({ kit, mode }: Props) {
+export function KitPreview({ kit, mode, loading = false }: Props) {
   // Converted rates state, managed by the CurrencySelector when in view mode
   const [convertedRates, setConvertedRates] = React.useState<Record<string, string>>({});
+
+  if (loading) return <KitPreviewSkeleton mode={mode} />;
 
   // Theme variable applied directly to style
   const style = {

@@ -9,7 +9,7 @@ export default function NotFound() {
           Kit Not Found
         </h1>
         <p className="text-cohere-slate mb-8 leading-[1.5] text-[16px]">
-          This media kit doesn't exist yet, or it may have been removed. 
+          This media kit doesn&apos;t exist yet, or it may have been removed.
         </p>
         <Link 
           href="/edit" 

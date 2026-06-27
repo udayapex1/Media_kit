@@ -31,7 +31,7 @@ export function useDebouncedAutosave(
         const saved = await saveFn(kit);
         setSyncedKit(saved); // reconcile state if needed by caller
         setStatus('saved');
-      } catch (err) {
+      } catch {
         setStatus('error');
       }
     }, delay);

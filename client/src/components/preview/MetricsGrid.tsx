@@ -4,6 +4,7 @@ import React from 'react';
 import { CreatorKit, MetricPlatform } from '../../lib/types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PlaySquare, Camera, MessageCircle, Gamepad2, Link as LinkIcon } from 'lucide-react';
+import { MetricsGridSkeleton } from './KitPreviewSkeleton';
 
 const PlatformIcon = ({ platform, className }: { platform: MetricPlatform, className?: string }) => {
   switch (platform) {
@@ -21,7 +22,9 @@ const formatNumber = (num: number) => {
   return num.toString();
 };
 
-export function MetricsGrid({ kit }: { kit: CreatorKit }) {
+export function MetricsGrid({ kit, loading = false }: { kit: CreatorKit; loading?: boolean }) {
+  if (loading) return <MetricsGridSkeleton />;
+
   const metrics = kit.metrics || [];
 
   if (metrics.length === 0) return null;

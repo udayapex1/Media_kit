@@ -1,6 +1,3 @@
-// mirror backend explicitly
-import { z } from 'zod';
-
 export type MetricPlatform = "youtube" | "instagram" | "tiktok" | "twitter" | "twitch" | "other";
 
 export interface Metric {

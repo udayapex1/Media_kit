@@ -1,18 +1,23 @@
 import React from 'react';
 import { getKit } from '../../../lib/api';
 import { KitPreview } from '../../../components/preview/KitPreview';
+import { DownloadPdfButton } from '../../../components/preview/DownloadPdfButton';
 import { notFound } from 'next/navigation';
 
 export default async function PublicKitPage({ params }: { params: { username: string } }) {
   try {
     const kit = await getKit(params.username);
     return (
-      <main className="h-screen w-full">
+      <main className="h-screen w-full relative">
         <KitPreview kit={kit} mode="view" />
+        <DownloadPdfButton
+          username={kit.username}
+          className="absolute top-6 right-6 z-10"
+        />
       </main>
     );
-  } catch (err: any) {
-    if (err.message === 'Not Found') {
+  } catch (err: unknown) {
+    if (err instanceof Error && err.message === 'Not Found') {
       notFound();
     }
     

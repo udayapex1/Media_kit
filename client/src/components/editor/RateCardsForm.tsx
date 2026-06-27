@@ -57,7 +57,7 @@ export function RateCardsForm({ kit, onChange }: Props) {
             >
               <div className="flex gap-3">
                 <input 
-                  className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] font-medium outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] flex-1"
+                  className="bg-cohere-stone border-0 p-[10px] rounded-[8px] text-cohere-ink text-[14px] font-medium outline-none transition-colors ring-1 ring-transparent focus:ring-[#9b60aa] flex-1"
                   placeholder="Service Name (e.g. Dedicated Video)"
                   value={rc.name}
                   onChange={(e) => updateCard(rc.id, { name: e.target.value })}
@@ -71,7 +71,7 @@ export function RateCardsForm({ kit, onChange }: Props) {
               </div>
 
               <textarea 
-                className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] w-full min-h-[80px]"
+                className="bg-cohere-stone border-0 p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors ring-1 ring-transparent focus:ring-[#9b60aa] w-full min-h-[80px]"
                 placeholder="Description of the deliverable..."
                 value={rc.description}
                 onChange={(e) => updateCard(rc.id, { description: e.target.value })}
@@ -82,7 +82,7 @@ export function RateCardsForm({ kit, onChange }: Props) {
                   <label className="text-[12px] text-cohere-slate">Price ({kit.base_currency})</label>
                   <input 
                     type="number" min="0"
-                    className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] w-full"
+                    className="bg-cohere-stone border-0 p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors ring-1 ring-transparent focus:ring-[#9b60aa] w-full"
                     value={rc.price || ''}
                     onChange={(e) => updateCard(rc.id, { price: Number(e.target.value) })}
                   />
@@ -90,7 +90,7 @@ export function RateCardsForm({ kit, onChange }: Props) {
                 <div className="flex-1 flex flex-col gap-1">
                   <label className="text-[12px] text-cohere-slate">Turnaround Time</label>
                   <input 
-                    className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] w-full"
+                    className="bg-cohere-stone border-0 p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors ring-1 ring-transparent focus:ring-[#9b60aa] w-full"
                     placeholder="e.g. 7 days"
                     value={rc.turnaround}
                     onChange={(e) => updateCard(rc.id, { turnaround: e.target.value })}

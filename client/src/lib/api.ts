@@ -44,3 +44,16 @@ export async function uploadImage(file: File): Promise<{ url: string }> {
   if (!res.ok) throw new Error('Failed to upload image');
   return res.json();
 }
+
+export async function exportKitPdf(username: string): Promise<Blob> {
+  const res = await fetch(`${API_URL}/api/kit/${username}/export-pdf`, {
+    method: 'POST'
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.error || 'Failed to export PDF');
+  }
+
+  return res.blob();
+}

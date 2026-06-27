@@ -1,8 +1,11 @@
 import React from 'react';
 import { CreatorKit } from '../../lib/types';
 import { User } from 'lucide-react';
+import { ProfileCardSkeleton } from './KitPreviewSkeleton';
 
-export function ProfileCard({ kit }: { kit: CreatorKit }) {
+export function ProfileCard({ kit, loading = false }: { kit: CreatorKit; loading?: boolean }) {
+  if (loading) return <ProfileCardSkeleton />;
+
   const displayName = kit.full_name || kit.username || 'Anonymous Creator';
   const handle = kit.username ? `@${kit.username}` : '';
 

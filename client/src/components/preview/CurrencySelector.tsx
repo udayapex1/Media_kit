@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { CreatorKit } from '../../lib/types';
 import { convertCurrency } from '../../lib/api';
+import { Skeleton } from '../ui/Skeleton';
 
 const CURRENCIES = ['USD', 'EUR', 'GBP', 'INR', 'AUD', 'CAD', 'SGD', 'JPY'];
 
@@ -69,7 +70,7 @@ export function CurrencySelector({ kit, onConverted }: Props) {
           <option key={c} value={c}>{c}</option>
         ))}
       </select>
-      {loading && <span className="text-[12px] text-cohere-blue animate-pulse px-2">Updating...</span>}
+      {loading && <Skeleton className="h-4 w-16 rounded-[6px] mr-2" />}
     </div>
   );
 }

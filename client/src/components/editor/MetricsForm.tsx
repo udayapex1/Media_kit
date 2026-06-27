@@ -59,14 +59,14 @@ export function MetricsForm({ kit, onChange }: Props) {
             >
               <div className="flex gap-3">
                 <select 
-                  className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] flex-1 capitalize"
+                  className="bg-cohere-stone border-0 p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors ring-1 ring-transparent focus:ring-[#9b60aa] flex-1 capitalize"
                   value={metric.platform}
                   onChange={(e) => updateMetric(metric.id, { platform: e.target.value as MetricPlatform })}
                 >
                   {PLATFORMS.map(p => <option key={p} value={p}>{p}</option>)}
                 </select>
                 <input 
-                  className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] flex-1"
+                  className="bg-cohere-stone border-0 p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors ring-1 ring-transparent focus:ring-[#9b60aa] flex-1"
                   placeholder="Handle (e.g. janedoe)"
                   value={metric.handle}
                   onChange={(e) => updateMetric(metric.id, { handle: e.target.value })}
@@ -84,7 +84,7 @@ export function MetricsForm({ kit, onChange }: Props) {
                   <label className="text-[12px] text-cohere-slate">Followers</label>
                   <input 
                     type="number" min="0"
-                    className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] w-full"
+                    className="bg-cohere-stone border-0 p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors ring-1 ring-transparent focus:ring-[#9b60aa] w-full"
                     value={metric.followers || ''}
                     onChange={(e) => updateMetric(metric.id, { followers: Number(e.target.value) })}
                   />
@@ -93,7 +93,7 @@ export function MetricsForm({ kit, onChange }: Props) {
                   <label className="text-[12px] text-cohere-slate">Engagement (%)</label>
                   <input 
                     type="number" min="0" step="0.1"
-                    className="bg-cohere-white border border-cohere-hairline p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] w-full"
+                    className="bg-cohere-stone border-0 p-[10px] rounded-[8px] text-cohere-ink text-[14px] outline-none transition-colors ring-1 ring-transparent focus:ring-[#9b60aa] w-full"
                     value={metric.engagement || ''}
                     onChange={(e) => updateMetric(metric.id, { engagement: Number(e.target.value) })}
                   />

@@ -10,6 +10,7 @@ import { MetricsForm } from '../../components/editor/MetricsForm';
 import { RateCardsForm } from '../../components/editor/RateCardsForm';
 import { ThemeColorPicker } from '../../components/editor/ThemeColorPicker';
 import { SaveStatusIndicator } from '../../components/editor/SaveStatusIndicator';
+import { DownloadPdfButton } from '../../components/preview/DownloadPdfButton';
 
 // Default initial state
 const defaultKit: CreatorKit = {
@@ -34,6 +35,11 @@ export default function EditPage() {
   };
 
   const isSlugValid = kit.username === '' || isValidSlug(kit.username);
+  const canExportPdf = Boolean(
+    kit.username &&
+    isValidSlug(kit.username) &&
+    syncedKit?.username === kit.username
+  );
 
   return (
     <div className="h-screen w-full flex flex-col md:flex-row overflow-hidden bg-cohere-white text-cohere-ink font-sans">
@@ -60,16 +66,25 @@ export default function EditPage() {
       >
         <div className="p-6 md:p-8 flex flex-col gap-8 max-w-xl mx-auto pb-32">
           
-          <div className="flex flex-col gap-2">
-            <h1 className="text-[32px] leading-[1.2] tracking-[-0.32px] font-medium text-cohere-black" style={{ fontFamily: 'Geist, sans-serif' }}>Kit Editor</h1>
-            <p className="text-cohere-slate text-[16px]">Design your media kit and rate card instantly.</p>
-            <SaveStatusIndicator status={status} />
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div className="flex flex-col gap-2">
+                <h1 className="text-[32px] leading-[1.2] tracking-[-0.32px] font-medium text-cohere-black" style={{ fontFamily: 'Geist, sans-serif' }}>Kit Editor</h1>
+                <p className="text-cohere-slate text-[16px]">Design your media kit and rate card instantly.</p>
+                <SaveStatusIndicator status={status} />
+              </div>
+              <DownloadPdfButton
+                username={kit.username}
+                disabled={!canExportPdf}
+                className="w-full sm:w-auto sm:shrink-0"
+              />
+            </div>
           </div>
 
           <div className="flex flex-col gap-2 bg-cohere-white border border-cohere-hairline p-5 rounded-[16px]">
             <label className="text-[14px] font-medium text-cohere-ink">Username URL Slug</label>
             <input 
-              className={`bg-cohere-white border p-3 rounded-[8px] text-cohere-ink text-[16px] outline-none transition-colors ${isSlugValid ? 'border-cohere-borderlight focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa]' : 'border-cohere-errorred focus:border-cohere-errorred'}`}
+              className={`bg-cohere-stone border-0 p-3 rounded-[8px] text-cohere-ink text-[16px] outline-none transition-colors ring-1 ${isSlugValid ? 'ring-transparent focus:ring-[#9b60aa]' : 'ring-cohere-errorred focus:ring-cohere-errorred'}`}
               placeholder="e.g. jane-doe-123"
               value={kit.username}
               onChange={(e) => handleChange({ username: e.target.value.toLowerCase() })}

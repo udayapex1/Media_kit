@@ -4,13 +4,17 @@ import React from 'react';
 import { CreatorKit } from '../../lib/types';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Package, Clock } from 'lucide-react';
+import { RateCardListSkeleton } from './KitPreviewSkeleton';
 
 interface Props {
   kit: CreatorKit;
   convertedRates?: Record<string, string>; // Maps rc.id to converted price string
+  loading?: boolean;
 }
 
-export function RateCardList({ kit, convertedRates }: Props) {
+export function RateCardList({ kit, convertedRates, loading = false }: Props) {
+  if (loading) return <RateCardListSkeleton />;
+
   const rateCards = kit.rate_cards || [];
 
   if (rateCards.length === 0) return null;

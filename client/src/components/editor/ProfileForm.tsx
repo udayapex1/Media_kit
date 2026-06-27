@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { Upload, Loader2 } from 'lucide-react';
 import { CreatorKit } from '../../lib/types';
 import { uploadImage } from '../../lib/api';
+import { Skeleton } from '../ui/Skeleton';
 
 interface Props {
   kit: CreatorKit;
@@ -44,7 +45,7 @@ export function ProfileForm({ kit, onChange }: Props) {
       <div className="flex flex-col gap-2">
         <label className="text-[14px] font-medium text-cohere-ink">Display Name</label>
         <input 
-          className="bg-cohere-white border border-cohere-hairline p-[12px] rounded-[8px] text-cohere-ink text-[16px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa]"
+          className="bg-cohere-stone border-0 p-[12px] rounded-[8px] text-cohere-ink text-[16px] outline-none transition-colors ring-1 ring-transparent focus:ring-[#9b60aa]"
           value={kit.full_name || ''}
           onChange={(e) => onChange({ full_name: e.target.value })}
           placeholder="e.g. Jane Doe"
@@ -54,7 +55,7 @@ export function ProfileForm({ kit, onChange }: Props) {
       <div className="flex flex-col gap-2">
         <label className="text-[14px] font-medium text-cohere-ink">Biography</label>
         <textarea 
-          className="bg-cohere-white border border-cohere-hairline p-[12px] rounded-[8px] text-cohere-ink text-[16px] outline-none transition-colors focus:border-[#9b60aa] focus:ring-1 focus:ring-[#9b60aa] min-h-[120px]"
+          className="bg-cohere-stone border-0 p-[12px] rounded-[8px] text-cohere-ink text-[16px] outline-none transition-colors ring-1 ring-transparent focus:ring-[#9b60aa] min-h-[120px]"
           value={kit.bio || ''}
           onChange={(e) => onChange({ bio: e.target.value })}
           placeholder="Tell brands about yourself..."
@@ -66,11 +67,14 @@ export function ProfileForm({ kit, onChange }: Props) {
         <div 
           {...getRootProps()} 
           className={`border border-dashed p-8 flex flex-col items-center justify-center rounded-[16px] cursor-pointer transition-colors
-            ${isDragActive ? 'border-[#1863dc] bg-cohere-paleblue' : 'border-cohere-hairline hover:border-cohere-slate bg-cohere-white'}`}
+            ${isDragActive ? 'border-[#60a5fa] bg-cohere-paleblue' : 'border-cohere-hairline hover:border-cohere-slate bg-cohere-stone'}`}
         >
           <input {...getInputProps()} />
           {isUploading ? (
-            <Loader2 className="mb-3 text-cohere-blue animate-spin" size={24} />
+            <div className="mb-3 flex flex-col items-center gap-3 w-full">
+              <Loader2 className="text-cohere-blue animate-spin" size={24} />
+              <Skeleton className="h-4 w-40" />
+            </div>
           ) : (
             <Upload className="mb-3 text-cohere-slate" size={24} />
           )}
