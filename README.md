@@ -2,6 +2,12 @@
 
 A full-stack web app for creators to build a live, shareable media kit and rate card. The editor uses a split-screen workspace: form controls on the left and a responsive public preview on the right. Changes autosave to PostgreSQL and can be viewed through a public `/kit/:username` route.
 
+## Screenshots
+
+| Editor (Split-screen) | Public Media Kit |
+|---|---|
+| ![Editor view](https://res.cloudinary.com/dwemivxbp/image/upload/v1782544628/Screenshot_from_2026-06-27_12-42-41_nvumhf.png) | ![Public kit view](https://res.cloudinary.com/dwemivxbp/image/upload/v1782544616/Screenshot_from_2026-06-27_12-43-34_uyyy49.png) |
+
 ## Features
 
 - Split-screen media kit editor with live preview

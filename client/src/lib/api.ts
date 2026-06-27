@@ -1,6 +1,6 @@
 import { CreatorKit } from './types';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_URL = 'https://media-kit-96xw.onrender.com';
 
 export async function saveKit(kit: CreatorKit): Promise<CreatorKit> {
   const res = await fetch(`${API_URL}/api/kit/save`, {
